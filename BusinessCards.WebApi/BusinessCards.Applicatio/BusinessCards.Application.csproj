@@ -15,9 +15,4 @@
     <ProjectReference Include="..\BusinessCards.Domain\BusinessCards.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\" />
-    <Folder Include="Validation\" />
-  </ItemGroup>
-
 </Project>

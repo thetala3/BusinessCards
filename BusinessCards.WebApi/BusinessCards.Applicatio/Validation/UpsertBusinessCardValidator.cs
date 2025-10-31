@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessCards.Application.Validation
 {
-    public class UpsertBusinessCardValidator : AbstractValidator<UpsertBusinessCardRequest>
+    public class UpsertBusinessCardValidator : AbstractValidator<BusinessCardRequestDto>
     {
         //This is for validating the input data when creating or updating a business card.
         public UpsertBusinessCardValidator()

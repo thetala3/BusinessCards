@@ -23,13 +23,15 @@ namespace BusinessCards.Infrastructure.Persistence
             {
                 entity.ToTable("BusinessCards");
                 entity.HasKey(x => x.Id);
+                entity.Property(x => x.Id)
+          .HasDefaultValueSql("NEWID()");
                 entity.Property(x => x.Name).IsRequired().HasMaxLength(200);
                 entity.Property(x => x.Gender).IsRequired().HasMaxLength(50);
                 entity.Property(x => x.Email).IsRequired().HasMaxLength(200);
                 entity.Property(x => x.Phone).IsRequired().HasMaxLength(50);
                 entity.Property(x => x.Address).HasMaxLength(500);
                 entity.Property(x => x.DateOfBirth).HasColumnType("date");
-                entity.Property(x => x.Photo).HasColumnType("nvarchar(max)");
+                entity.Property(x => x.Photo).HasColumnType("varbinary(max)");
                 entity.HasIndex(x => x.Name);
                 entity.HasIndex(x => x.Email);
                 entity.HasIndex(x => x.Phone);

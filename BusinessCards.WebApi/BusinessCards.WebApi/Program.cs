@@ -1,4 +1,7 @@
+using BusinessCards.Application.Interfaces;
 using BusinessCards.Infrastructure.Persistence;
+using BusinessCards.Infrastructure.Services;
+using BusinessCards.WebApi.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,8 +15,12 @@ builder.Services.AddSwaggerGen();
 
 var conn = builder.Configuration.GetConnectionString("SqlServer");
 builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(conn));
+builder.Services.AddScoped<IImportExportService, ImportExportService>();
+builder.Services.AddScoped<IBusinessCardsService, BusinessCardsService>();
 
 var app = builder.Build();
+
+GlobalExceptionHandler.Configure(app, app.Logger);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -18,7 +18,15 @@ builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(conn));
 builder.Services.AddScoped<IImportExportService, ImportExportService>();
 builder.Services.AddScoped<IBusinessCardsService, BusinessCardsService>();
 
+// Program.cs
+builder.Services.AddCors(o => o.AddPolicy("AllowDev", p =>
+    p.WithOrigins("http://localhost:4200")
+     .AllowAnyHeader()
+     .AllowAnyMethod()));
+
 var app = builder.Build();
+app.UseCors("AllowDev");
+
 
 GlobalExceptionHandler.Configure(app, app.Logger);
 

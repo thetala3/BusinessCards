@@ -27,7 +27,7 @@ namespace BusinessCards.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetCard")]
+        [Route("GetCard/{id:guid}")]
         public async Task<ActionResult<BusinessCardRequestDto>> GetCard(Guid guid) {
             var card = await _businessCardsService.GetCard(guid);
 
@@ -38,11 +38,11 @@ namespace BusinessCards.WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteCard")]
-        public async Task<IActionResult> DeleteCard(Guid guid, CancellationToken ct)
+        [Route("DeleteCard/{id:guid}")]
+        public async Task<IActionResult> DeleteCard(Guid id, CancellationToken ct)
         {
-            if (guid == Guid.Empty) return BadRequest(new { message = "Invalid id." });
-            var deleted = await _businessCardsService.DeleteCardAsync(guid, ct);
+            if (id == Guid.Empty) return BadRequest(new { message = "Invalid id." });
+            var deleted = await _businessCardsService.DeleteCardAsync(id, ct);
             if (!deleted) return NotFound();
             return NoContent();
         }

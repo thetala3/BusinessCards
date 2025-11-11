@@ -1,14 +1,14 @@
 
 @use '@angular/material' as mat;
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
-html, body {
-  height: 100%;
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #fafafa;
+
+.mat-mdc-select-panel {
+  background: #fff !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06) !important;
+  border: 1px solid rgba(0,0,0,.06);
 }
 
-.mat-mdc-card {
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+.mdc-dialog__surface, .mat-mdc-card {
+  border-radius: 12px !important;
 }

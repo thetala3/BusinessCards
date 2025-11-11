@@ -1,17 +1,51 @@
+.dialog-body {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 16px 0;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(220px, 1fr));
-  gap: 12px;
+  gap: 14px;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+
+  .full {
+  grid-column: 1 / -1;
+}
 }
 
-.full {
-  grid-column: 1 / -1;
+mat-form-field {
+  width: 85%;
+  text-align: center;
+
+  .mat-mdc-text-field-wrapper {
+    text-align: center;
+  }
+
+  input, select, textarea {
+    text-align: center !important;
+  }
+
+  mat-select {
+    text-align: center !important;
+  }
 }
 
 .file-field {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
 
   #photoInput {
     display: none;
@@ -20,22 +54,32 @@
   .file-label {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    gap: 8px;
     cursor: pointer;
     padding: 8px 12px;
-    border: 1px dashed rgba(0,0,0,0.3);
+    border: 1px dashed rgba(0,0,0,0.35);
     border-radius: 8px;
+    user-select: none;
   }
 
   .file-hint {
-    opacity: 0.75;
+    opacity: 0.7;
     font-size: 12px;
+    text-align: center;
+    width: 100%;
+  }
+    .preview {
+    width: 70px; height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.06);
   }
 }
 
 .actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 8px;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
 }

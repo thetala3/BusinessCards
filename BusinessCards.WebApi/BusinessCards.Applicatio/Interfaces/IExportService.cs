@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace BusinessCards.Application.Interfaces
 {
-    public interface IImportExportService
+    public interface IExportService
     {
-        Task<List<BusinessCardRequestDto>> ParseCsvFileAsync(Stream csv);
-        Task<List<BusinessCardRequestDto>> ParseXmlFilesAsync(Stream xml);
-
         Task<(byte[] Content, string ContentType, string FileName)> ExportCsvFilesAsync();
         Task<(byte[] Content, string ContentType, string FileName)> ExportXmlFilesAsync();
     }

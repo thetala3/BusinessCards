@@ -142,4 +142,12 @@ export class ListBusinessCardsComponent implements OnInit, AfterViewInit {
       if (saved) this.loadCards();
     });
   }
+
+
+async onExportCsv() {
+  try { await this.apiService.downloadCsv(); } catch (e) { console.error(e); }
+}
+async onExportXml() {
+  try { await this.apiService.downloadXml(); } catch (e) { console.error(e); }
+}
 }

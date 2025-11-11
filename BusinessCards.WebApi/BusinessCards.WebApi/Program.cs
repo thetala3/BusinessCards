@@ -3,6 +3,7 @@ using BusinessCards.Infrastructure.Persistence;
 using BusinessCards.Infrastructure.Services;
 using BusinessCards.WebApi.Middleware;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    //c.SupportNonNullableReferenceTypes();
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BusinessCards API", Version = "v1" });
+});
 
 var conn = builder.Configuration.GetConnectionString("SqlServer");
 builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(conn));
-builder.Services.AddScoped<IImportExportService, ImportExportService>();
+builder.Services.AddScoped<IExportService, ExportService>();
 builder.Services.AddScoped<IBusinessCardsService, BusinessCardsService>();
 
 // Program.cs
@@ -33,6 +38,7 @@ GlobalExceptionHandler.Configure(app, app.Logger);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

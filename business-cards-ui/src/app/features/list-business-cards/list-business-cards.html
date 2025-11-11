@@ -11,6 +11,15 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="name, email, phone..." />
       </mat-form-field>
 
+      <button mat-stroked-button (click)="onExportCsv()">
+        <mat-icon>table_view</mat-icon>
+        CSV
+      </button>
+      <button mat-stroked-button (click)="onExportXml()">
+        <mat-icon>code</mat-icon>
+        XML
+      </button>
+
       <button mat-flat-button color="primary" (click)="openAddDialog()">
         <mat-icon>add</mat-icon>
         Add

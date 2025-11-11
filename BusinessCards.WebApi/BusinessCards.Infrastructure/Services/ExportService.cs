@@ -15,10 +15,10 @@ using System.Xml.Serialization;
 
 namespace BusinessCards.Infrastructure.Services
 {
-    public class ImportExportService : IImportExportService
+    public class ExportService : IExportService
     {
         private readonly AppDbContext appContext;
-        public ImportExportService(AppDbContext _appContext)
+        public ExportService(AppDbContext _appContext)
         {
             appContext = _appContext;
         }
@@ -34,6 +34,7 @@ namespace BusinessCards.Infrastructure.Services
 
             static BusinessCardRequestDto ToCsv(BusinessCard e) => new()
             {
+                Id = e.Id,
                 Name = e.Name,
                 Gender = e.Gender,
                 DateOfBirth = e.DateOfBirth,
@@ -49,6 +50,7 @@ namespace BusinessCards.Infrastructure.Services
             var all = await appContext.BusinessCards.AsNoTracking().ToListAsync();
             var env = all.Select(e => new BusinessCardRequestDto
             {
+                Id = e.Id,
                 Name = e.Name,
                 Gender = e.Gender,
                 DateOfBirth = e.DateOfBirth,
@@ -64,27 +66,5 @@ namespace BusinessCards.Infrastructure.Services
             return (ms.ToArray(), "application/xml", $"business-cards-{DateTime.UtcNow:yyyyMMddHHmmss}.xml");
         }
 
-        public async Task<List<BusinessCardRequestDto>> ParseCsvFileAsync(Stream csv)
-        {
-            using var reader = new StreamReader(csv, Encoding.UTF8, leaveOpen: true);
-
-            var CsvConfig = CsvConfiguration.FromAttributes<BusinessCardRequestDto>();
-            using var csvr = new CsvReader(reader, CsvConfig);
-
-            var rows = new List<BusinessCardRequestDto>();
-            await foreach (var row in csvr.GetRecordsAsync<BusinessCardRequestDto>()) 
-            {
-                rows.Add(row);
-            }
-
-            return rows;
-        }
-
-        public async Task<List<BusinessCardRequestDto>> ParseXmlFilesAsync(Stream xml)
-        {
-            var serializer = new XmlSerializer(typeof(List<BusinessCardRequestDto>));
-            var rows = serializer.Deserialize(xml) as List<BusinessCardRequestDto>;
-            return await Task.FromResult(rows ?? new List<BusinessCardRequestDto>());
-        }
     }
 }

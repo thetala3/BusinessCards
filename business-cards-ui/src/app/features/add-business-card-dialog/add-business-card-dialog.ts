@@ -64,6 +64,12 @@ export class AddBusinessCardDialogComponent {
       return;
     }
     const file = input.files[0];
+     if (file.size > 1_000_000) {
+    alert('Photo must be ≤ 1MB');
+    this.photoBase64 = null;
+    (this.form.get('photo') as any)?.setValue(null);
+    return;
+  }
     this.photoBase64 = await this.fileToBase64(file);
   }
 

@@ -43,3 +43,11 @@ tr.mat-row:hover {
 mat-paginator {
   margin-top: 10px;
 }
+
+.photo-thumb {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.06);
+}

@@ -53,9 +53,10 @@ namespace BusinessCards.WebApi.Controllers
 
             if (card is null)
                 return BadRequest(new { message = "No cards provided." });
-
-            await _businessCardsService.CreateCard(card);
-            return StatusCode(StatusCodes.Status201Created);
+            
+                await _businessCardsService.CreateCard(card);
+                return StatusCode(StatusCodes.Status201Created);
+            
         }
     }
 }

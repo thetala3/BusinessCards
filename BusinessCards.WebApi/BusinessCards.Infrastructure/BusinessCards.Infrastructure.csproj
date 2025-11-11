@@ -22,4 +22,8 @@
     <ProjectReference Include="..\BusinessCards.Domain\BusinessCards.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

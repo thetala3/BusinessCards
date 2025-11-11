@@ -5,6 +5,7 @@ using BusinessCards.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,14 @@ namespace BusinessCards.Infrastructure.Services
         {
             if (BusinessCardRequest is null)
                 return;
-
+            byte[]? photoBytes = null;
+            if (!BusinessCardRequest.Photo.IsNullOrEmpty()) {
+                var padding = BusinessCardRequest.Photo!.Count(c => c == '=');
+                var decodedLen = (BusinessCardRequest.Photo!.Length * 3 / 4) - padding;
+                if (decodedLen > 1_000_000)
+                    throw new InvalidOperationException("Photo exceeds 1MB.");
+                photoBytes = Convert.FromBase64String(BusinessCardRequest.Photo);
+            }
             await appDbContext.BusinessCards.AddAsync(
                 new BusinessCard { 
                     Name = BusinessCardRequest.Name,
@@ -36,7 +44,7 @@ namespace BusinessCards.Infrastructure.Services
                     DateOfBirth = BusinessCardRequest.DateOfBirth,
                     Email = BusinessCardRequest.Email,
                     Phone = BusinessCardRequest.Phone,
-                    Photo = BusinessCardRequest.Photo
+                    Photo = photoBytes
                 });
 
             await appDbContext.SaveChangesAsync();
@@ -66,7 +74,7 @@ namespace BusinessCards.Infrastructure.Services
                     Email = card.Email,
                     Gender = card.Gender,
                     Phone = card.Phone,
-                    Photo = card.Photo,
+                    Photo = card.Photo != null ? Convert.ToBase64String(card.Photo) : null,
                 }).ToListAsync();
 
         }
@@ -85,7 +93,7 @@ namespace BusinessCards.Infrastructure.Services
                     Email = card.Email,
                     Gender = card.Gender,
                     Phone = card.Phone,
-                    Photo = card.Photo,
+                    Photo = card.Photo != null ? Convert.ToBase64String(card.Photo) : null,
                 })
                 .FirstOrDefaultAsync();
             return card;

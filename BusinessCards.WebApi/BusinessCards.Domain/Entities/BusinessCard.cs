@@ -18,6 +18,7 @@ namespace BusinessCards.Domain.Entities
             public DateTime? DateOfBirth { get; set; }
             public string Email { get; set; }
             public string Phone { get; set; }
+            [Column(TypeName = "varbinary(max)")]    
             public byte[]? Photo { get; set; }
             public string? Address { get; set; }
             public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

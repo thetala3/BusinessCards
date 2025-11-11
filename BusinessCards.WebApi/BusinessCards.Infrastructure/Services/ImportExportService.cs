@@ -39,7 +39,7 @@ namespace BusinessCards.Infrastructure.Services
                 DateOfBirth = e.DateOfBirth,
                 Email = e.Email,
                 Phone = e.Phone,
-                Photo = e.Photo,
+                Photo = e.Photo != null ? Convert.ToBase64String(e.Photo) : null,
                 Address = e.Address
             };
         }
@@ -54,7 +54,7 @@ namespace BusinessCards.Infrastructure.Services
                 DateOfBirth = e.DateOfBirth,
                 Email = e.Email,
                 Phone = e.Phone,
-                Photo = e.Photo,
+                Photo = e.Photo != null ? Convert.ToBase64String(e.Photo) : null,
                 Address = e.Address
             }).ToList();
 

@@ -54,7 +54,7 @@ export interface BusinessCard {
   styleUrls: ['./list-business-cards.scss'],
 })
 export class ListBusinessCardsComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['name','gender','dateOfBirth','email','phone','address','actions'];
+  displayedColumns: string[] = ['photo','name','gender','dateOfBirth','email','phone','address','actions'];
   dataSource = new MatTableDataSource<BusinessCard>([]);
   loading = false;
 
